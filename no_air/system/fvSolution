@@ -1,0 +1,102 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.water.*"
+    {
+        nAlphaCorr      2;
+        nAlphaSubCycles 1;
+        cAlpha			1;
+
+        MULESCorr       yes;
+        nLimiterIter    3;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0;
+    }
+    ".*(rho|rhoFinal)"
+    {
+        solver          diagonal;
+    }
+    "pcorr.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-08;
+        relTol          0;
+    }
+    p_rgh
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-07;
+        relTol          0.05;
+    }
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+    "(U|T|k|epsilon|B|nuTilda).*"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor   no;
+    transonic           no;
+    nOuterCorrectors    2;
+    nCorrectors         3;
+    nNonOrthogonalCorrectors 0;
+    correctPhi          no;
+
+    outerCorrectorResidualControl
+    {
+        "(U|k|epsilon)"
+        {
+                tolerance	0.001;
+                relTol		0;
+        }
+        p_rgh
+        {
+                tolerance	0.001;
+                relTol		0;
+        }
+     }
+}
+
+relaxationFactors
+{
+	fields
+	{
+		p_rgh				0.9;
+	}	
+    equations
+    {
+		"(U|k|epsilon)" 	0.9;
+    }
+}
+
+
+// ************************************************************************* //

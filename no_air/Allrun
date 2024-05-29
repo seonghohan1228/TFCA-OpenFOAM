@@ -1,0 +1,18 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+touch a.foam
+
+cp -a 0.orig/. 0/
+
+runApplication blockMesh
+runApplication decomposePar
+echo Running $(getApplication) on $(pwd)
+mpiexec -np 40 $(getApplication) -parallel > log.$(getApplication)
+
+echo Run complete.
+
+#------------------------------------------------------------------------------

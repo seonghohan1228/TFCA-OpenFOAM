@@ -3,6 +3,9 @@
 ### OpenFOAM ###
 # Tutorial cases
 tutorials/*
+# Code
+*/dynamicCode/*
+*/constant/polyMesh/*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/openfoam

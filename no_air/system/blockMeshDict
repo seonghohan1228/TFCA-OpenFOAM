@@ -1,0 +1,200 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+	\\  /    A nd           | Version:  9
+	 \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+	format      ascii;
+	class       dictionary;
+	object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.001;
+
+/// Constants
+halfAngle		0.5;
+
+/// Parameters
+// Nozzle geometry
+d				5;
+a				0.1;	// Wall thickness
+b				2.5;	// Gap thickness
+
+// Calculation domain
+gridSize		0.05;
+DWR				2;		// Domain Width Ratio (W / d)
+DLR				30;		// Domain Length Ratio (L / d)
+
+/// Calculated Parameters
+// Nozzle
+r1				#calc "0.5 * $d";
+r2				#calc "$r1 + $a";	// Inner D of secondary flow
+r3				#calc "$r2 + $b";	// Outer D of secondary flow
+
+// Domain
+r4				#calc "$DWR * $d";
+y0				#calc "-$DLR * $d";
+y1				0;
+
+/// Geometry
+radHalfAngle 	#calc "degToRad($halfAngle)";
+
+// Calculated points for wedge
+// x-direction
+x0				0;
+x1				#calc "$r1 * cos($radHalfAngle)";
+x2				#calc "$r2 * cos($radHalfAngle)";
+x3				#calc "$r3 * cos($radHalfAngle)";
+x4				#calc "$r4 * cos($radHalfAngle)";
+
+// z-direction
+z0				0;
+z5				#calc "$r1 * sin($radHalfAngle)";
+z6				#calc "$r2 * sin($radHalfAngle)";
+z7				#calc "$r3 * sin($radHalfAngle)";
+z8				#calc "$r4 * sin($radHalfAngle)";
+z1				#calc "-$z5";
+z2				#calc "-$z6";
+z3				#calc "-$z7";
+z4				#calc "-$z8";
+
+// Mesh Grading
+Ny				#calc "std::ceil( ($y1 - $y0) / $gridSize )";
+
+vertices
+(
+	// Back (z < 0)
+	($x0 $y0 $z0)
+	($x1 $y0 $z1)
+	($x2 $y0 $z2)
+	($x3 $y0 $z3)
+	($x4 $y0 $z4)
+	
+	($x0 $y1 $z0)
+	($x1 $y1 $z1)
+	($x2 $y1 $z2)
+	($x3 $y1 $z3)
+	($x4 $y1 $z4)
+	
+	// Fromt (z > 0)
+	($x1 $y0 $z5)
+	($x2 $y0 $z6)
+	($x3 $y0 $z7)
+	($x4 $y0 $z8)
+	
+	($x1 $y1 $z5)
+	($x2 $y1 $z6)
+	($x3 $y1 $z7)
+	($x4 $y1 $z8)
+);
+
+blocks
+(
+    hex (0 1 6 5 0 10 14 5)
+	(23 $Ny 1)
+	simpleGrading (0.25 1 1)
+
+    hex (1 2 7 6 10 11 15 14)
+	(2 $Ny 1)
+	simpleGrading (1 1 1)
+
+    hex (2 3 8 7 11 12 16 15)
+	(35 $Ny 1)
+	simpleGrading (2 1 1)
+
+    hex (3 4 9 8 12 13 17 16)
+	(34 $Ny 1)
+	simpleGrading (2 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+	waterInlet
+	{
+		type patch;
+		faces
+		(
+			(5 14 6 5)
+		);
+	}
+	airInlet
+	{
+		type patch;
+		faces
+		(
+			(15 16 8 7)
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			(0 1 10 0)
+			(1 2 11 10)
+			(2 3 12 11)
+			(3 4 13 12)
+		);
+	}
+	freestream
+	{
+		type patch;
+		faces
+		(
+			(4 9 17 13)
+		);
+	}
+	walls
+	{
+		type wall;
+		faces
+		(
+			(14 15 7 6)
+			(16 17 9 8)
+		);
+	}
+	axis
+	{
+		type empty;
+		faces
+		(
+			(0 5 5 0)
+		);
+	}
+	front
+	{
+		type wedge;
+		faces
+		(
+			(0 10 14 5)
+			(10 11 15 14)
+			(11 12 16 15)
+			(12 13 17 16)
+		);
+	}
+	back
+	{
+		type wedge;
+		faces
+		(
+			(0 5 6 1)
+			(1 6 7 2)
+			(2 7 8 3)
+			(3 8 9 4)
+		);
+	}
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
