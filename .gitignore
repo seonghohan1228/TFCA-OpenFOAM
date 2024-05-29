@@ -1,3 +1,10 @@
+# Seongho's custom
+
+### OpenFOAM ###
+# Tutorial cases
+tutorials/*
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/openfoam
 # Edit at https://www.toptal.com/developers/gitignore?templates=openfoam
 
