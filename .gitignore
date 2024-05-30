@@ -15,9 +15,6 @@ tutorials/*
 # Edit at https://www.toptal.com/developers/gitignore?templates=openfoam
 
 ### OpenFOAM ###
-# Timestep directories
-0.*
-[1-9]*
 
 # Fields that must get ignored
 */phi*
