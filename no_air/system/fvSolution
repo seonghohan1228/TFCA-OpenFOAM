@@ -27,7 +27,7 @@ solvers
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-06;
+        tolerance       1e-08;
         relTol          0;
     }
     ".*(rho|rhoFinal)"
@@ -45,21 +45,21 @@ solvers
     {
         solver          PCG;
         preconditioner  DIC;
-        tolerance       5e-07;
+        tolerance       1e-08;
         relTol          0.01;
     }
     p_rghFinal
     {
         solver          PCG;
         preconditioner  DIC;
-        tolerance       5e-07;
+        tolerance       1e-08;
         relTol          0;
     }
     "(U|T|k|epsilon|B|nuTilda).*"
     {
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-06;
+        tolerance       1e-07;
         relTol          0;
     }
 }
