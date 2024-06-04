@@ -11,7 +11,7 @@ cp -a 0.orig/. 0/
 runApplication blockMesh
 runApplication decomposePar
 echo Running $(getApplication) on $(pwd)
-mpiexec -np 20 $(getApplication) -parallel > log.$(getApplication)
+mpiexec -np 60 $(getApplication) -parallel > log.$(getApplication)
 
 echo Run complete.
 
