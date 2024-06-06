@@ -21,29 +21,29 @@ boundaryField
 {
     waterInlet
     {
-		/* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
-		 * U = 0.1 m/s
-		 * D = 0.005 m
-		 * nu = 0.0000008917 m^2/s
-		 * Re = 875
-		 * I = 0.0686  (turbulent intensity)
-		 */
-		 
-		type			fixedValue;
-		value			uniform 0.000071;		/* CHECK VALUE */
+        /* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
+         * U = 0.1 m/s
+         * D = 0.005 m
+         * nu = 0.0000008917 m^2/s
+         * Re = 561
+         * I = 0.0725  (turbulent intensity)
+         */
+         
+        type            fixedValue;
+        value           uniform 0.000079;       /* CHECK VALUE */
     }
     airInlet
     {
-		/* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
-		 * U = 0 m/s
-		 * h = 0.0025 m
-		 * nu = 0.00001552 m^2/s
-		 * Re = 0
-		 * I = 0  (turbulent intensity)
-		 */
-		 
-		type			fixedValue;
-		value			uniform 1e-16;			/* CHECK VALUE */
+        /* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
+         * U = 0 m/s
+         * h = 0.0025 m
+         * nu = 0.00001552 m^2/s
+         * Re = 0
+         * I = 0  (turbulent intensity)
+         */
+         
+        type            fixedValue;
+        value           uniform 1e-16;          /* CHECK VALUE */
     }
     outlet
     {
@@ -59,17 +59,17 @@ boundaryField
         value           $internalField;
     }
     axis
-	{
-		type			empty;
-	}
+    {
+        type            empty;
+    }
     front
     {
-		type				wedge;
-	}
-	back
-	{
-		type				wedge;
-	}
+        type            wedge;
+    }
+    back
+    {
+        type            wedge;
+    }
 }
 
 // ************************************************************************* //
