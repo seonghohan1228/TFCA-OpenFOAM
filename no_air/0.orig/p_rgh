@@ -29,22 +29,20 @@ boundaryField
     }
     outlet
     {
-        type            prghTotalPressure;
-        p0              uniform 101325;
-        rho             thermo:rho;/*
         type            waveTransmissive;
-        field           p_rgh;
-        psi             thermo:psi;
+        value           uniform 101325;
+        field           p;
         gamma           1.4;
-        fieldInf        1;
-        lInf            3;
-        value           uniform 101325;*/
+        phi             phi;
+        rho             thermo:rho;
+        psi             thermo:psi;
+        lInf            5;
+        fieldInf        101325;
     }
     freestream
     {
-        type            prghTotalPressure;
-        p0              uniform 101325;
-        rho             thermo:rho;
+        type            fixedValue;
+        value           uniform 101325;
     }
     walls
     {
