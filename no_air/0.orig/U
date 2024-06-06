@@ -85,29 +85,29 @@ boundaryField
     }
     outlet
     {
-        type			pressureInletOutletVelocity;
-		value			uniform (0 0 0);
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
     } 
     freestream
     {
-        type			pressureInletOutletVelocity;
-		value			uniform (0 0 0);
+        type            pressureInletOutletVelocity;
+        value           uniform (0 0 0);
     }
     walls
     {
-        type			noSlip;
+        type            noSlip;
     }   
 	axis
 	{
-		type			empty;
+        type            empty;
 	}    
     front
     {
-		type			wedge;
+        type            wedge;
 	}	
 	back
 	{
-		type			wedge;
+        type            wedge;
 	}
 }
 
