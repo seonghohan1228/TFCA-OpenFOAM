@@ -26,15 +26,14 @@ gradSchemes
 
 divSchemes
 {
-    div(phi,alpha)      Gauss MPLIC;
-
     div(rhoPhi,U)       Gauss limitedLinearV 1;
-    div(rhoPhi,T)       Gauss limitedLinear 1;
-    div(rhoPhi,K)       Gauss limitedLinear 1;
-    div(phi,p)          Gauss limitedLinear 1;
-    div(rhoPhi,k)		Gauss limitedLinear 1;
-    div(rhoPhi,epsilon)	Gauss limitedLinear 1;
-
+    div(phi,alpha)      Gauss vanLeer;
+    div(phirb,alpha)    Gauss interfaceCompression 1;
+    div(rhoPhi,T)       Gauss linear;
+    div(rhoPhi,K)       Gauss linear;
+    div(phi,p)          Gauss linear;
+    div(rhoPhi,k)       Gauss linear;
+    div(rhoPhi,epsilon) Gauss linear;
     div(((thermo:rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 }
 
