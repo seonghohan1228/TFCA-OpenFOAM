@@ -27,7 +27,7 @@ solvers
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-08;
+        tolerance       1e-10;
         relTol          0;
     }
     ".*(rho|rhoFinal)"
@@ -45,21 +45,21 @@ solvers
     {
         solver          PCG;
         preconditioner  DIC;
-        tolerance       1e-08;
+        tolerance       1e-07;
         relTol          0.01;
     }
     p_rghFinal
     {
         solver          PCG;
         preconditioner  DIC;
-        tolerance       1e-08;
+        tolerance       1e-07;
         relTol          0;
     }
     "(U|T|k|epsilon|B|nuTilda).*"
     {
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-07;
+        tolerance       1e-06;
         relTol          0;
     }
 }
@@ -69,9 +69,11 @@ PIMPLE
     momentumPredictor   no;
     transonic           no;
     nOuterCorrectors    2;
-    nCorrectors         2;
+    nCorrectors         4;
     nNonOrthogonalCorrectors 0;
     correctPhi          no;
+    pRefCell 0;
+    pRefValue 101325;
 
     outerCorrectorResidualControl
     {
