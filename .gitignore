@@ -10,6 +10,8 @@ tutorials/*
 # Pictures
 */results/pictures/*
 
+# 0 folders (0.orig is used for edit. 0 may be altered by mapfields)
+no_air/0/*
 
 # Created by https://www.toptal.com/developers/gitignore/api/openfoam
 # Edit at https://www.toptal.com/developers/gitignore?templates=openfoam
