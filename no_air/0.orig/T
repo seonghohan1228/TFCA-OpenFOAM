@@ -22,12 +22,12 @@ boundaryField
     waterInlet
     {
         type            fixedValue;
-        value			uniform 298;
+        value           uniform 298;
     }
     airInlet
     {
         type            fixedValue;
-        value			uniform 298;
+        value           uniform 298;
     }
     outlet
     {

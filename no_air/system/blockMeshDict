@@ -27,7 +27,7 @@ b				2.5;	// Gap thickness
 // Calculation domain
 gridSize		0.1;
 DWR				2;		// Domain Width Ratio (W / d)
-DLR				30;		// Domain Length Ratio (L / d)
+DLR				20;		// Domain Length Ratio (L / d)
 
 /// Calculated Parameters
 // Nozzle
