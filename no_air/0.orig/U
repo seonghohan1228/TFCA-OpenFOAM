@@ -21,73 +21,73 @@ boundaryField
 {
     waterInlet
     {
-		type                codedFixedValue;
-		value				uniform (0 0 0);
-		name				primaryVelocity;
-		code
-		#{
-			const fvPatch& boundaryPatch = this->patch(); 
-			const vectorField& Cf = boundaryPatch.Cf();
-			vectorField& v = *this;
-			
-			scalar U = 0.1;							/* CHECK VALUE */
-			scalar Umax = 2*U;
-			
-			const scalar d = 0.005; 				/* CHECK VALUE */
-			const scalar r = d/2;
-			
-			forAll(Cf, faceI)
-			{
-				scalar x = Cf[faceI].x();
-				scalar u = -Umax*(1 - pow(x/r,2));
-				
-				v[faceI] = vector(0, u, 0);
-			}
-		#};
+        type                codedFixedValue;
+        value               uniform (0 0 0);
+        name                primaryVelocity;
+        code
+        #{
+            const fvPatch& boundaryPatch = this->patch(); 
+            const vectorField& Cf = boundaryPatch.Cf();
+            vectorField& v = *this;
+            
+            scalar U = 0.1;                         /* CHECK VALUE */
+            scalar Umax = 2*U;
+            
+            const scalar d = 0.005;                 /* CHECK VALUE */
+            const scalar r = d/2;
+            
+            forAll(Cf, faceI)
+            {
+                scalar x = Cf[faceI].x();
+                scalar u = -Umax*(1 - pow(x/r,2));
+                
+                v[faceI] = vector(0, u, 0);
+            }
+        #};
     }
     airInlet
-    {		
-		type                codedFixedValue;
-		value				uniform (0 0 0);
-		name				secondaryVelocity;
-		code
-		#{
-			const fvPatch& boundaryPatch = this->patch();
-			const vectorField& Cf = boundaryPatch.Cf();
-			vectorField& v = *this;
-			
-			const scalar pi = 3.141592;
-			const scalar t0 = 0.05;  				/* CHECK VALUE */
-			const scalar theta = 0;  				/* CHECK VALUE */
-			const scalar omega = 2*pi/t0;
-			scalar t = this->db().time().value();
-			
-			scalar U = 0 *0.5*(1 - cos(omega*t));	/* CHECK VALUE */
-			scalar Umax = 1.5*U;
-			
-			const scalar d = 0.005;					/* CHECK VALUE */
-			const scalar a = 0.0001;
-			const scalar b = 0.0025;				/* CHECK VALUE */
-			const scalar r1 = d/2;
-			const scalar r2 = r1 + a;
-			const scalar r3 = r2 + b;
-			
-			forAll(Cf, faceI)
-			{
-				scalar x = Cf[faceI].x();
-				scalar u = 4*Umax*(x - r2)*(x - r3)/pow((r3 - r2),2);
-				scalar ux = -U*sin(pi*theta/180);
-				scalar uy = -U*cos(pi*theta/180);
-				
-				v[faceI] = vector(ux, uy, 0);
-			}
-		#};
+    {
+        type                codedFixedValue;
+        value               uniform (0 0 0);
+        name                secondaryVelocity;
+        code
+        #{
+            const fvPatch& boundaryPatch = this->patch();
+            const vectorField& Cf = boundaryPatch.Cf();
+            vectorField& v = *this;
+            
+            const scalar pi = 3.141592;
+            const scalar t0 = 0.05;                 /* CHECK VALUE */
+            const scalar theta = 0;                 /* CHECK VALUE */
+            const scalar omega = 2*pi/t0;
+            scalar t = this->db().time().value();
+            
+            scalar U = 0 *0.5*(1 - cos(omega*t));   /* CHECK VALUE */
+            scalar Umax = 1.5*U;
+            
+            const scalar d = 0.005;                 /* CHECK VALUE */
+            const scalar a = 0.0001;
+            const scalar b = 0.0025;                /* CHECK VALUE */
+            const scalar r1 = d/2;
+            const scalar r2 = r1 + a;
+            const scalar r3 = r2 + b;
+            
+            forAll(Cf, faceI)
+            {
+                scalar x = Cf[faceI].x();
+                scalar u = 4*Umax*(x - r2)*(x - r3)/pow((r3 - r2),2);
+                scalar ux = -U*sin(pi*theta/180);
+                scalar uy = -U*cos(pi*theta/180);
+                
+                v[faceI] = vector(ux, uy, 0);
+            }
+        #};
     }
     outlet
     {
         type            pressureInletOutletVelocity;
         value           uniform (0 0 0);
-    } 
+    }
     freestream
     {
         type            pressureInletOutletVelocity;
@@ -96,19 +96,19 @@ boundaryField
     walls
     {
         type            noSlip;
-    }   
-	axis
-	{
+    }
+    axis
+    {
         type            empty;
-	}    
+    }
     front
     {
         type            wedge;
-	}	
-	back
-	{
+    }
+    back
+    {
         type            wedge;
-	}
+    }
 }
 
 // ************************************************************************* //
