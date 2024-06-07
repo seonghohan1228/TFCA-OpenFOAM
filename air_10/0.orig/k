@@ -38,12 +38,12 @@ boundaryField
          * U = 0 m/s
          * h = 0.0025 m
          * nu = 0.00001552 m^2/s
-         * Re = 1611
-         * I = 0.0636  (turbulent intensity)
+         * Re = 805
+         * I = 0.0693  (turbulent intensity)
          */
          
         type            fixedValue;
-        value           uniform 0.606;          /* CHECK VALUE */
+        value           uniform 0.721;          /* CHECK VALUE */
     }
     outlet
     {
