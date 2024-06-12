@@ -1,0 +1,73 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    object      epsilon;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions              [0 2 -3 0 0 0 0];
+
+internalField           uniform 1e-16;
+
+boundaryField
+{
+    waterInlet
+    {
+        /* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
+         * U = 0.1 m/s
+         * D = 0.005 m
+         * nu = 0.0000008917 m^2/s
+         * Re = 561
+         * I = 0.0725  (turbulent intensity)
+         */
+        type            fixedValue;
+        value           uniform 0.000023;           /* CHECK VALUE */
+    }
+    airInlet
+    {
+        /* Flow properties (UPDATE WHEN CHANGING PARAMETERS)
+         * U = 0 m/s
+         * h = 0.0025 m
+         * nu = 0.00001552 m^2/s
+         * Re = 403
+         * I = 0.0756  (turbulent intensity)
+         */
+        type            fixedValue;
+        value           uniform 6.52;              /* CHECK VALUE */
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    freestream
+    {
+        type            zeroGradient;
+    }
+    walls
+    {
+        type            epsilonWallFunction;
+        value           $internalField;
+    }
+    axis
+    {
+        type            empty;
+    }
+    front
+    {
+        type            wedge;
+    }
+    back
+    {
+        type            wedge;
+    }
+}
+
+// ************************************************************************* //
