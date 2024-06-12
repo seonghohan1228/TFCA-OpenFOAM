@@ -6,7 +6,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 runApplication decomposePar
 echo Running $(getApplication) on $(pwd)
-mpiexec -np 20 $(getApplication) -parallel > log.$(getApplication)
+mpiexec -np 30 $(getApplication) -parallel > log.$(getApplication)
 
 echo Run complete.
 
