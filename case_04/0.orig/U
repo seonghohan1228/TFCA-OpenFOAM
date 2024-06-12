@@ -62,7 +62,7 @@ boundaryField
             const scalar omega = 2*pi/t0;
             scalar t = this->db().time().value();
             
-            scalar U = 10;// *0.5*(1 - cos(omega*t));   /* CHECK VALUE */
+            scalar U = 20;// *0.5*(1 - cos(omega*t));   /* CHECK VALUE */
             scalar Umax = 1.5*U;
             
             const scalar d = 0.005;                 /* CHECK VALUE */
