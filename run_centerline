@@ -1,0 +1,17 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+python3 centerline.py no_air
+python3 centerline.py case_01
+python3 centerline.py case_02
+python3 centerline.py case_03
+python3 centerline.py case_04
+python3 centerline.py case_05
+python3 centerline.py case_06
+python3 centerline.py case_07
+python3 centerline.py case_08
+
+echo Run complete.
+
+#------------------------------------------------------------------------------
